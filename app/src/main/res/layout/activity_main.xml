@@ -1,18 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="@color/colorPrimary"
+        android:text="Professors at UIUC"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="75dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/searchProfessor"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Search a professor"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="20dp"
+        android:textSize="30dp"
+        />
+
+    <Button
+        android:id="@+id/searchCourse"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Search a course"
+        android:layout_marginLeft="80dp"
+        android:textSize="30dp"
+        />
+
+    <Button
+        android:id="@+id/updateData"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:text="Update     your data"
+        android:layout_marginLeft="80dp"
+        android:textSize="30dp"
+        />
+
+    <Button
+        android:id="@+id/Geoff"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:text=" Surprise!"
+        android:layout_marginLeft="80dp"
+        android:textSize="30dp"
+        />
+
+    <Button
+        android:id="@+id/exit"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:text="Exit"
+        android:layout_marginLeft="80dp"
+        android:textSize="30dp"
+        />
+
+</LinearLayout>
