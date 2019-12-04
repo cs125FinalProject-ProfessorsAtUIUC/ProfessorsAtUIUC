@@ -13,7 +13,7 @@
         android:textSize="75dp" />
 
     <Button
-        android:id="@+id/searchProfessor"
+        android:id="@+id/toSearchProf"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="Search a professor"
@@ -23,7 +23,7 @@
         />
 
     <Button
-        android:id="@+id/searchCourse"
+        android:id="@+id/toSearchCourse"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="Search a course"
