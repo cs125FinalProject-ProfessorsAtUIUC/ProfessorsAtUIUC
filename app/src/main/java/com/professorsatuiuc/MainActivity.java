@@ -15,6 +15,7 @@ MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //跳到search by professor页
         Button toSearchProf = findViewById(R.id.toSearchProf);
         toSearchProf.setOnClickListener(new View.OnClickListener() {
             @Override
