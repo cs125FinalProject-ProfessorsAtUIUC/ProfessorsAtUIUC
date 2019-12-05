@@ -25,7 +25,7 @@ public class Professor {
     public static void searchProfessor() {
         Reader in = null;
         try {
-            in = new FileReader("raw.githubusercontent.com/wadefagen/datasets/master/gpa/uiuc-gpa-dataset.csv");
+            in = new FileReader("C:\\Users\\25771\\AndroidStudioProjects\\ProfessorsAtUIUC\\app\\try.csv");
             Iterable<CSVRecord> records = null;
             try {
                 records = CSVFormat.EXCEL.parse(in);
