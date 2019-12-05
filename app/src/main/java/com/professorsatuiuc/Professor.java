@@ -1,7 +1,16 @@
 package com.professorsatuiuc;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,23 +28,19 @@ public class Professor {
         this.yearTerm = yearTerm;
         this.grade = grade;
     }
-    public static void sortProfessor() {
-        String fileName = "uiuc-gpa-dataset.csv";
-        File file = new File(fileName);
-        List<Professor> professorList= new ArrayList<Professor>();
+    public static void searchProfessor() {
+        Reader in = null;
         try {
-            Scanner inputStream = new Scanner(file);
-            while (inputStream.hasNext()) {
-                String data = inputStream.next();
-                String[] values = data.split(",");
-                String courseNum =  values[3] + " " + values[4];
-                String grade = "A+: " + values[6] + ", A: " + values[7] + ", A-: " + values[8] + ", B+: "
-                        + values[9] + ", B: " + values[10] + ", B-: " + values[11] + ", C+: " + values[12]
-                        + ",  C: " + values[13] + ", C-: " + values[14] + ", D+: " + values[15] + ", D: "
-                        + values[16] + ", D-: " + values[17] + ", F: " + values[18] + ", W: " + values[19];
-                professorList.add(new Professor(values[20], courseNum, values[5], values[2], grade));
+            in = new FileReader("raw.githubusercontent.com/wadefagen/datasets/master/gpa/uiuc-gpa-dataset.csv");
+            Iterable<CSVRecord> records = null;
+            try {
+                records = CSVFormat.EXCEL.parse(in);
+                for (CSVRecord record : records) {
+                    String Prof = record.get("Primary Instructor");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            inputStream.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
