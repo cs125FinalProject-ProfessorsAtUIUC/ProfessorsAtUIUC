@@ -1,19 +1,13 @@
 package com.professorsatuiuc;
 
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class Professor {
     private String name;
@@ -36,7 +30,8 @@ public class Professor {
             try {
                 records = CSVFormat.EXCEL.parse(in);
                 for (CSVRecord record : records) {
-                    String Prof = record.get("Primary Instructor");
+                    String prof = record.get("Primary Instructor");
+                    System.out.println(prof);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
