@@ -42,16 +42,15 @@ public class SearchByProfessor extends AppCompatActivity {
      */
     private void searchingProf() {
         //get the text & store in #keyword
-        EditText searchProf_text = findViewById(R.id.searchProf_text);
-        final String keyword = searchProf_text.getText().toString();
+        final EditText searchProf_text = findViewById(R.id.searchProf_text);
         LinearLayout profList = findViewById(R.id.profList);//List in searching page.
         profList.removeAllViews();
         Button searchProfButton = findViewById(R.id.searchProf_button);
         searchProfButton.setOnClickListener(new View.OnClickListener() {
-            private String name = keyword;
+            String keyword = searchProf_text.getText().toString();
             @Override
             public void onClick(View view) {
-                searchProfessor(name);
+                searchProfessor(keyword);
             }
         });
 
@@ -62,22 +61,22 @@ public class SearchByProfessor extends AppCompatActivity {
         //4. all prof's name will be needed to create button on searching page -> populate the chunk
         //5. the selected prof's data will be needed on displaying page, thus format it. -> show
 
-        //start loop before this
-        View profChunk = getLayoutInflater().inflate(R.layout.chunk_prof, profList, false);//the chunk layout
-        Button aProf = profChunk.findViewById(R.id.aProf);//the button of prof
-        aProf.setText("prof's name");//set the button's text
-        profList.addView(profChunk);
-        //end loop after this
     }
     public void searchProfessor(String name) {
         LinearLayout profList = findViewById(R.id.profList);//List in searching page.
         profList.removeAllViews();
         InputStream is = getResources().openRawResource(R.raw.gpa);
+
+
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            String line;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        String line;
             while ((line = reader.readLine()) != null) {
                 String[] rowData = line.split(",");
+                for (String d : rowData) {
+                    System.out.print(d + ".");
+                }
+                System.out.println();
                 String de = rowData[20];
                 if (de.contains(name)) {
                     try {
@@ -97,6 +96,8 @@ public class SearchByProfessor extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
