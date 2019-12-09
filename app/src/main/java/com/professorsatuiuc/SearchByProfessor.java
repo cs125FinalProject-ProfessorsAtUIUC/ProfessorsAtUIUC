@@ -8,6 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 public class SearchByProfessor extends AppCompatActivity {
 
     @Override
@@ -46,5 +52,21 @@ public class SearchByProfessor extends AppCompatActivity {
                 profList, false);//the chunk layout
         Button aProf = profChunk.findViewById(R.id.aProf);//the button in chunk, will be added to profList
         aProf.setText("prof's name");//what we need to do is to change the button's text
+    }
+    public void searchProfessor(String name) {
+        InputStream is = getResources().openRawResource(R.raw.uiuc-gpa-dataset.csv);
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] rowData = line.split(",");
+                String[] nameSplit = rowData[20].split(" ");
+                if ()
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
