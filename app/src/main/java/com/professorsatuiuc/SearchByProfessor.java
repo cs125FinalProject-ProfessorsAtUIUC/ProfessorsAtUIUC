@@ -34,17 +34,20 @@ public class SearchByProfessor extends AppCompatActivity {
         EditText searchProf_text = findViewById(R.id.searchProf_text);
         String keyword = searchProf_text.getText().toString();
         //gonna read csv by line here.Better do with a loop to delete String[] inside.
-        //1. decide if the keyword is its subString
-        //2. split and see if the keyword is in prof's name. If no then next line. If yes:
+        //{1. decide if the keyword is its subString
+        // 2. split and see if the keyword is in prof's name. If no then next line. If yes:
         //3. store the line somewhere, maybe in a map.
-        //4. all prof's name will be needed to create button on searching page -> populate the chunk
+        //4. all prof's name will be needed to create button on searching page -> populate the chunk}
         //5. the selected prof's data will be needed on displaying page, thus format it. -> show
 
         //don't know what to do with it yet, will need to populate the chunk&list
         LinearLayout profList = findViewById(R.id.profList);//List in searching page.
+        //start loop
         View profChunk = getLayoutInflater().inflate(R.layout.chunk_prof,
                 profList, false);//the chunk layout
         Button aProf = profChunk.findViewById(R.id.aProf);//the button in chunk, will be added to profList
         aProf.setText("prof's name");//what we need to do is to change the button's text
+        //end loop
     }
+
 }
