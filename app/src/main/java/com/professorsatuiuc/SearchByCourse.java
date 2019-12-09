@@ -17,19 +17,18 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class SearchByProfessor extends AppCompatActivity {
+public class SearchByCourse extends AppCompatActivity {
 
-    private Map<String, LinkedList<String[]>>  professors = new HashMap<>();
+    private Map<String, LinkedList<String[]>> professors = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_by_professor);
-        //点击search button将开始searchingProf程序
-        Button searchProf_button = findViewById(R.id.searchProf_button);
+        setContentView(R.layout.activity_search_by_course);
+        Button searchProf_button = findViewById(R.id.searchCourse_button);
         searchProf_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                searchingProf();
+                searchingCourse();
             }
         });
     }
@@ -39,10 +38,10 @@ public class SearchByProfessor extends AppCompatActivity {
      * will also load and store profs' data in a data structure.
      * display要不换个程序再写
      */
-    private void searchingProf() {
+    private void searchingCourse() {
         //get the text & store in #keyword
-        EditText searchProf_text = findViewById(R.id.searchProf_text);
-        String keyword = searchProf_text.getText().toString();
+        EditText searchCourse_text = findViewById(R.id.searchCourse_text);
+        String keyword = searchCourse_text.getText().toString();
         LinearLayout profList = findViewById(R.id.profList);//List in searching page.
         profList.removeAllViews();
         //gonna read csv by line here.Better do with a loop to delete String[] inside.

@@ -7,13 +7,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:text="Search a Professor"
+        android:text="Search a Course"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="45dp" />
 
     <EditText
-        android:id="@+id/searchProf_text"
+        android:id="@+id/searchCourse_text"
         android:layout_width="321dp"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
@@ -21,7 +21,7 @@
         android:textSize="25dp" />
 
     <Button
-        android:id="@+id/searchProf_button"
+        android:id="@+id/searchCourse_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="11dp"
@@ -43,7 +43,7 @@
             android:textSize="22sp" />
 
         <LinearLayout
-            android:id="@+id/profList"
+            android:id="@+id/CourseList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"

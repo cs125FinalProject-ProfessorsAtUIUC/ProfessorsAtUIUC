@@ -35,6 +35,13 @@ MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, SearchByProfessor.class));
             }
         });
+        Button toSearchCourse = findViewById(R.id.toSearchCourse);
+        toSearchCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, SearchByCourse.class));
+            }
+        });
     }
 }
 
