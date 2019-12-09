@@ -2,6 +2,7 @@ package com.professorsatuiuc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,13 +20,13 @@ import java.util.Map;
 
 public class SearchByCourse extends AppCompatActivity {
 
-    private Map<String, LinkedList<String[]>> professors = new HashMap<>();
+    private Map<String, LinkedList<String[]>>  courses = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_by_course);
-        Button searchProf_button = findViewById(R.id.searchCourse_button);
-        searchProf_button.setOnClickListener(new View.OnClickListener() {
+        Button searchCourse_button = findViewById(R.id.searchCourse_button);
+        searchCourse_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 searchingCourse();
@@ -33,58 +34,66 @@ public class SearchByCourse extends AppCompatActivity {
         });
     }
 
-    /**
-     * click search will start this. search through cvs and load buttons in searching page.
-     * will also load and store profs' data in a data structure.
-     * display要不换个程序再写
-     */
     private void searchingCourse() {
-        //get the text & store in #keyword
-        EditText searchCourse_text = findViewById(R.id.searchCourse_text);
-        String keyword = searchCourse_text.getText().toString();
-        LinearLayout profList = findViewById(R.id.profList);//List in searching page.
-        profList.removeAllViews();
-        //gonna read csv by line here.Better do with a loop to delete String[] inside.
-        //1. decide if the keyword is its subString
-        //2. split and see if the keyword is in prof's name. If no then next line. If yes:
-        //3. store the line somewhere, maybe in a map.
-        //4. all prof's name will be needed to create button on searching page -> populate the chunk
-        //5. the selected prof's data will be needed on displaying page, thus format it. -> show
-
-        //start loop before this
-        View profChunk = getLayoutInflater().inflate(R.layout.chunk_prof, profList, false);//the chunk layout
-        Button aProf = profChunk.findViewById(R.id.aProf);//the button of prof
-        aProf.setText("prof's name");//set the button's text
-        profList.addView(profChunk);
-        //end loop after this
+        final EditText searchCourse_text = findViewById(R.id.searchCourse_text);
+        LinearLayout courseList = findViewById(R.id.courseList);//List in searching page.
+        courseList.removeAllViews();
+        Button searchCourseButton = findViewById(R.id.searchCourse_button);
+        searchCourseButton.setOnClickListener(new View.OnClickListener() {
+            String keyword = searchCourse_text.getText().toString();
+            @Override
+            public void onClick(View view) {
+                searchCourse(keyword);
+            }
+        });
     }
-    public void searchProfessor(String name) {
-        LinearLayout profList = findViewById(R.id.profList);//List in searching page.
-        profList.removeAllViews();
-        InputStream is = getResources().openRawResource(R.raw.gpa);
+    public void searchCourse(final String name) {
+        LinearLayout courseList = findViewById(R.id.courseList);
+        courseList.removeAllViews();
+        final InputStream is = getResources().openRawResource(R.raw.gpa);
+
+
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] rowData = line.split(",");
-                String de = rowData[20];
-                if (de.contains(name)) {
+                String[] rowData = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+                String de1 = rowData[3] + " " + rowData[4];
+                String de2 = rowData[3] + rowData[4];
+                if (de1.contains(name) || de2.contains(name)) {
                     try {
-                        professors.get(de).addFirst(rowData);
+                        courses.get(de1).addFirst(rowData);
                     } catch (Exception e) {
-                        LinkedList<String[]> toPut = new LinkedList<String[]>();
+                        LinkedList<String[]> toPut = new LinkedList<>();
                         toPut.add(rowData);
-                        professors.put(de, toPut);
+                        courses.put(de1, toPut);
                     }
-                    View profChunk = getLayoutInflater().inflate(R.layout.chunk_prof, profList, false);//the chunk layout
-                    Button aProf = profChunk.findViewById(R.id.aProf);//the button of prof
-                    aProf.setText(de);//set the button's text
-                    profList.addView(profChunk);
+                    View courseChunk = getLayoutInflater().inflate(R.layout.chunk_course, courseList, false);
+                    Button aCourse = courseChunk.findViewById(R.id.aCourse);
+                    aCourse.setText(de1);
+                    courseList.addView(courseChunk);
+//                    aProf.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            Intent intent = new Intent(SearchByProfessor.this, ProfDisplay.class);
+//                            intent.putExtra("name", name);
+//                            LinkedList<String[]> datas = professors.get(name);
+//                            int i = 0;
+//                            while (datas != null) {
+//                                intent.putExtra(Integer.toString(i), datas.removeFirst());
+//                                i++;
+//                            }
+//                            intent.putExtra("lines", i);
+//                            startActivity(intent);
+//                        }
+//                    });
                 }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

@@ -43,7 +43,7 @@
             android:textSize="22sp" />
 
         <LinearLayout
-            android:id="@+id/CourseList"
+            android:id="@+id/courseList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
