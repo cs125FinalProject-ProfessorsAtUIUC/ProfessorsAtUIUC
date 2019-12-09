@@ -2,6 +2,7 @@ package com.professorsatuiuc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 public class SearchByProfessor extends AppCompatActivity {
@@ -62,21 +62,17 @@ public class SearchByProfessor extends AppCompatActivity {
         //5. the selected prof's data will be needed on displaying page, thus format it. -> show
 
     }
-    public void searchProfessor(String name) {
+    public void searchProfessor(final String name) {
         LinearLayout profList = findViewById(R.id.profList);//List in searching page.
         profList.removeAllViews();
-        InputStream is = getResources().openRawResource(R.raw.gpa);
+        final InputStream is = getResources().openRawResource(R.raw.gpa);
 
 
         try {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         String line;
             while ((line = reader.readLine()) != null) {
-                String[] rowData = line.split(",");
-                for (String d : rowData) {
-                    System.out.print(d + ".");
-                }
-                System.out.println();
+                String[] rowData = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                 String de = rowData[20];
                 if (de.contains(name)) {
                     try {
@@ -86,11 +82,26 @@ public class SearchByProfessor extends AppCompatActivity {
                         toPut.add(rowData);
                         professors.put(de, toPut);
                     }
-                    View profChunk = getLayoutInflater().inflate(R.layout.chunk_prof, profList, false);//the chunk layout
+                    View profChunk = getLayoutInflater().inflate(R.layout.chunk_searchProf, profList, false);//the chunk layout
                     Button aProf = profChunk.findViewById(R.id.aProf);//the button of prof
                     //add onclick here for aProf
                     aProf.setText(de);//set the button's text
                     profList.addView(profChunk);
+                    aProf.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(SearchByProfessor.this, ProfDisplay.class);
+                            intent.putExtra("name", name);
+                            LinkedList<String[]> datas = professors.get(name);
+                            int i = 0;
+                            while (datas != null) {
+                                intent.putExtra(Integer.toString(i), datas.removeFirst());
+                                i++;
+                            }
+                            intent.putExtra("lines", i);
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
         } catch (FileNotFoundException e) {

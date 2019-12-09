@@ -13,4 +13,10 @@
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="30sp" />
+
+    <LinearLayout
+        android:id="@+id/DisProfList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"></LinearLayout>
 </LinearLayout>
