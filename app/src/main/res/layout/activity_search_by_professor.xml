@@ -17,7 +17,7 @@
         android:layout_width="321dp"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
-        android:text="enter here"
+        android:hint="enter here"
         android:textSize="25dp" />
 
     <Button
