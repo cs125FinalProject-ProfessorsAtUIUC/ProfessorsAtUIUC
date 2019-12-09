@@ -14,12 +14,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class SearchByProfessor extends AppCompatActivity {
 
-    private Map<String, String[]>  professors = new HashMap<>();
+    private Map<String, LinkedList<String[]>>  professors = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,15 +71,19 @@ public class SearchByProfessor extends AppCompatActivity {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] rowData = line.split(",");
-                if (rowData[20].contains(name)) {
+                String de = rowData[20];
+                if (de.contains(name)) {
                     try {
-                        professors.getOrDefault()
-                        professors.replace(rowData[20], )
+                        //professors.getOrDefault()
+                        professors.get(de).addFirst(rowData);
+                    } catch (Exception e) {
+                        LinkedList<String[]> toPut = new LinkedList<String[]>();
+                        toPut.add(rowData);
+                        professors.put(de, toPut);
                     }
-                    professors.put(rowData[20], rowData);
                     View profChunk = getLayoutInflater().inflate(R.layout.chunk_prof, profList, false);//the chunk layout
                     Button aProf = profChunk.findViewById(R.id.aProf);//the button of prof
-                    aProf.setText(rowData[20]);//set the button's text
+                    aProf.setText(de);//set the button's text
                     profList.addView(profChunk);
                 }
             }
