@@ -82,7 +82,7 @@ public class SearchByProfessor extends AppCompatActivity {
                         toPut.add(rowData);
                         professors.put(de, toPut);
                     }
-                    View profChunk = getLayoutInflater().inflate(R.layout.chunk_searchProf, profList, false);//the chunk layout
+                    View profChunk = getLayoutInflater().inflate(R.layout.chunk_prof, profList, false);//the chunk layout
                     Button aProf = profChunk.findViewById(R.id.aProf);//the button of prof
                     //add onclick here for aProf
                     aProf.setText(de);//set the button's text

@@ -37,6 +37,7 @@ public class ProfDisplay extends AppCompatActivity {
         }
         for (Map.Entry<String,String> entry : courses.entrySet()) {
             View disProfChunk = getLayoutInflater().inflate(R.layout.chunk_disprof, disProfList, false);
+
         }
         //load other data from intent
         //maybe use a List<T>
