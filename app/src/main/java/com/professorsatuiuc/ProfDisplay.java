@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProfDisplay extends AppCompatActivity {
-    private Map<String, String> courses = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prof_display);
+        Map<String, String> courses = new HashMap<>();
         LinearLayout disProfList = findViewById(R.id.DisProfList);
         //intent 拉name 改 textView
         String prof = getIntent().getStringExtra("prof");
@@ -37,8 +37,11 @@ public class ProfDisplay extends AppCompatActivity {
         }
         for (Map.Entry<String,String> entry : courses.entrySet()) {
             View disProfChunk = getLayoutInflater().inflate(R.layout.chunk_disprof, disProfList, false);
+            TextView course = disProfChunk.findViewById(R.id.course);
+            course.setText(entry.getKey());
+            TextView data = disProfChunk.findViewById(R.id.data);
+            data.setText(entry.getValue());
+            disProfList.addView(disProfChunk);
         }
-        //load other data from intent
-        //maybe use a List<T>
     }
 }
