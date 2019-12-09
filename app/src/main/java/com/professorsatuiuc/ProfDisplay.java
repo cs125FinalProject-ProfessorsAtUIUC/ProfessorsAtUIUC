@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProfDisplay extends AppCompatActivity {
-    private Map<String, String> courses = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prof_display);
+        Map<String, String> courses = new HashMap<>();
         LinearLayout disProfList = findViewById(R.id.DisProfList);
         //intent 拉name 改 textView
         String prof = getIntent().getStringExtra("prof");
