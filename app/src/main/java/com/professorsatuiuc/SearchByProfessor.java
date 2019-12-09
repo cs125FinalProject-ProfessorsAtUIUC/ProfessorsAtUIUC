@@ -13,9 +13,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SearchByProfessor extends AppCompatActivity {
 
+    private Map<String, String[]>  professors = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,14 +60,27 @@ public class SearchByProfessor extends AppCompatActivity {
         //end loop after this
     }
     public void searchProfessor(String name) {
+        EditText searchProf_text = findViewById(R.id.searchProf_text);
+        String keyword = searchProf_text.getText().toString();
+        LinearLayout profList = findViewById(R.id.profList);//List in searching page.
+        profList.removeAllViews();
         InputStream is = getResources().openRawResource(R.raw.gpa);
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] rowData = line.split(",");
-                String[] nameSplit = rowData[20].split(" ");
-                if ()
+                if (rowData[20].contains(name)) {
+                    try {
+                        professors.getOrDefault()
+                        professors.replace(rowData[20], )
+                    }
+                    professors.put(rowData[20], rowData);
+                    View profChunk = getLayoutInflater().inflate(R.layout.chunk_prof, profList, false);//the chunk layout
+                    Button aProf = profChunk.findViewById(R.id.aProf);//the button of prof
+                    aProf.setText(rowData[20]);//set the button's text
+                    profList.addView(profChunk);
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
