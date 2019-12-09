@@ -43,9 +43,18 @@ public class SearchByProfessor extends AppCompatActivity {
     private void searchingProf() {
         //get the text & store in #keyword
         EditText searchProf_text = findViewById(R.id.searchProf_text);
-        String keyword = searchProf_text.getText().toString();
+        final String keyword = searchProf_text.getText().toString();
         LinearLayout profList = findViewById(R.id.profList);//List in searching page.
         profList.removeAllViews();
+        Button searchProfButton = findViewById(R.id.searchProf_button);
+        searchProfButton.setOnClickListener(new View.OnClickListener() {
+            private String name = keyword;
+            @Override
+            public void onClick(View view) {
+                searchProfessor(name);
+            }
+        });
+
         //gonna read csv by line here.Better do with a loop to delete String[] inside.
         //1. decide if the keyword is its subString
         //2. split and see if the keyword is in prof's name. If no then next line. If yes:
@@ -61,8 +70,6 @@ public class SearchByProfessor extends AppCompatActivity {
         //end loop after this
     }
     public void searchProfessor(String name) {
-        EditText searchProf_text = findViewById(R.id.searchProf_text);
-        String keyword = searchProf_text.getText().toString();
         LinearLayout profList = findViewById(R.id.profList);//List in searching page.
         profList.removeAllViews();
         InputStream is = getResources().openRawResource(R.raw.gpa);
@@ -74,15 +81,15 @@ public class SearchByProfessor extends AppCompatActivity {
                 String de = rowData[20];
                 if (de.contains(name)) {
                     try {
-                        //professors.getOrDefault()
                         professors.get(de).addFirst(rowData);
                     } catch (Exception e) {
-                        LinkedList<String[]> toPut = new LinkedList<String[]>();
+                        LinkedList<String[]> toPut = new LinkedList<>();
                         toPut.add(rowData);
                         professors.put(de, toPut);
                     }
                     View profChunk = getLayoutInflater().inflate(R.layout.chunk_prof, profList, false);//the chunk layout
                     Button aProf = profChunk.findViewById(R.id.aProf);//the button of prof
+                    //add onclick here for aProf
                     aProf.setText(de);//set the button's text
                     profList.addView(profChunk);
                 }
