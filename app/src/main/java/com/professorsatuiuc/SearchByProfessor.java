@@ -54,7 +54,7 @@ public class SearchByProfessor extends AppCompatActivity {
         aProf.setText("prof's name");//what we need to do is to change the button's text
     }
     public void searchProfessor(String name) {
-        InputStream is = getResources().openRawResource(R.raw.uiuc-gpa-dataset.csv);
+        InputStream is = getResources().openRawResource(R.raw.gpa);
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String line;
