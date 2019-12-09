@@ -48,10 +48,11 @@ public class SearchByProfessor extends AppCompatActivity {
 
         //don't know what to do with it yet, will need to populate the chunk&list
         LinearLayout profList = findViewById(R.id.profList);//List in searching page.
-        View profChunk = getLayoutInflater().inflate(R.layout.chunk_prof,
-                profList, false);//the chunk layout
+        //start loop before this
+        View profChunk = getLayoutInflater().inflate(R.layout.chunk_prof, profList, false);//the chunk layout
         Button aProf = profChunk.findViewById(R.id.aProf);//the button in chunk, will be added to profList
         aProf.setText("prof's name");//what we need to do is to change the button's text
+        //end loop after this
     }
     public void searchProfessor(String name) {
         InputStream is = getResources().openRawResource(R.raw.uiuc-gpa-dataset.csv);
