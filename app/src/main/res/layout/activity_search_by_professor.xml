@@ -24,8 +24,8 @@
         android:id="@+id/searchProf_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text=" SEARCH"
+        android:layout_marginLeft="11dp"
+        android:text=" Search"
         android:textSize="30dp" />
 
     <LinearLayout
