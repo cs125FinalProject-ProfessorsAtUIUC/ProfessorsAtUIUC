@@ -72,7 +72,7 @@ public class SearchByProfessor extends AppCompatActivity {
             while ((line = reader.readLine()) != null) {
                 String[] rowData = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                 final String prof = rowData[20];
-                if (prof.contains(name)) {
+                if (prof.toLowerCase().contains(name.toLowerCase())) {
                     try {
                         professors.get(prof).add(line);
                     } catch (Exception e) {
