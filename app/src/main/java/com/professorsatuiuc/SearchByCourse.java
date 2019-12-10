@@ -1,27 +1,29 @@
 package com.professorsatuiuc;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.textservice.SpellCheckerSession;
+import android.view.textservice.SuggestionsInfo;
+import android.view.textservice.TextInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class SearchByCourse extends AppCompatActivity {
 
-    SpellCheckerSession spellChecker;
     Button suggested_button;
     Button searchCourse_button;
     EditText searchCourse_text;
@@ -41,24 +43,28 @@ public class SearchByCourse extends AppCompatActivity {
                 searchingCourse();
             }
         });
-//        suggested_button.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                suggestingCourse();
-//            }
-//        });
+        suggested_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                suggestingCourse();
+            }
+        });
     }
 
-//    private void suggestingCourse() {
-//        courseList.removeAllViews();
-//        suggested_button.setOnClickListener(new View.OnClickListener() {
-//            String keyword = searchCourse_text.getText().toString();
-//            @Override
-//            public void onClick(View view) {
-//                searchCourse(keyword);
-//            }
-//        });
-//    }
+    private void suggestingCourse() {
+        courseList.removeAllViews();
+        suggested_button.setOnClickListener(new View.OnClickListener() {
+            String input = searchCourse_text.getText().toString();
+            TextInfo convert = new TextInfo(input);
+            SpellingService spellingService = new SpellingService();
+            MySpellingSession mySpellingSession = (MySpellingSession) spellingService.createSession();
+            SuggestionsInfo suggestionsInfo = mySpellingSession.onGetSuggestions(convert, 3);
+            String output = suggestionsInfo.getSuggestionAt(0);
+            public void onClick(View view) {
+                searchCourse(output);
+            }
+        });
+    }
 
     private void searchingCourse() {
         courseList.removeAllViews();
