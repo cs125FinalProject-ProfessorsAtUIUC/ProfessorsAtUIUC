@@ -43,8 +43,10 @@ public class SearchByProfessor extends AppCompatActivity {
     private void searchingProf() {
         //get the text & store in #keyword
         final EditText searchProf_text = findViewById(R.id.searchProf_text);
+
         LinearLayout profList = findViewById(R.id.profList);//List in searching page.
         profList.removeAllViews();
+
         Button searchProfButton = findViewById(R.id.searchProf_button);
         searchProfButton.setOnClickListener(new View.OnClickListener() {
             String keyword = searchProf_text.getText().toString();
@@ -53,21 +55,17 @@ public class SearchByProfessor extends AppCompatActivity {
                 searchProfessor(keyword);
             }
         });
-
-        //gonna read csv by line here.Better do with a loop to delete String[] inside.
-        //1. decide if the keyword is its subString
-        //2. split and see if the keyword is in prof's name. If no then next line. If yes:
-        //3. store the line somewhere, maybe in a map.
-        //4. all prof's name will be needed to create button on searching page -> populate the chunk
-        //5. the selected prof's data will be needed on displaying page, thus format it. -> show
-
     }
+
+    /**
+     * after clicked search.
+     * really searching.
+     * @param name name of the prof.
+     */
     public void searchProfessor(final String name) {
         LinearLayout profList = findViewById(R.id.profList);//List in searching page.
         profList.removeAllViews();
         final InputStream is = getResources().openRawResource(R.raw.gpa);
-
-
         try {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         String line;
