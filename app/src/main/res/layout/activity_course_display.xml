@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/colorPrimary"
-        android:text="CS 125"
+        android:text="CS 101"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="30sp" />
