@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.textservice.SpellCheckerSession;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -20,26 +21,48 @@ import java.util.Map;
 
 public class SearchByCourse extends AppCompatActivity {
 
+    SpellCheckerSession spellChecker;
+    Button suggested_button;
+    Button searchCourse_button;
+    EditText searchCourse_text;
+    LinearLayout courseList;
     private Map<String, LinkedList<String[]>>  courses = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_by_course);
-        Button searchCourse_button = findViewById(R.id.searchCourse_button);
+        suggested_button = findViewById(R.id.suggested_button);
+        searchCourse_button = findViewById(R.id.searchCourse_button);
+        searchCourse_text = findViewById(R.id.searchCourse_text);
+        courseList = findViewById(R.id.courseList);
         searchCourse_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 searchingCourse();
             }
         });
+//        suggested_button.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                suggestingCourse();
+//            }
+//        });
     }
 
+//    private void suggestingCourse() {
+//        courseList.removeAllViews();
+//        suggested_button.setOnClickListener(new View.OnClickListener() {
+//            String keyword = searchCourse_text.getText().toString();
+//            @Override
+//            public void onClick(View view) {
+//                searchCourse(keyword);
+//            }
+//        });
+//    }
+
     private void searchingCourse() {
-        final EditText searchCourse_text = findViewById(R.id.searchCourse_text);
-        LinearLayout courseList = findViewById(R.id.courseList);//List in searching page.
         courseList.removeAllViews();
-        Button searchCourseButton = findViewById(R.id.searchCourse_button);
-        searchCourseButton.setOnClickListener(new View.OnClickListener() {
+        searchCourse_button.setOnClickListener(new View.OnClickListener() {
             String keyword = searchCourse_text.getText().toString();
             @Override
             public void onClick(View view) {
@@ -60,7 +83,8 @@ public class SearchByCourse extends AppCompatActivity {
                 String[] rowData = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                 String de1 = rowData[3] + " " + rowData[4];
                 String de2 = rowData[3] + rowData[4];
-                if (de1.contains(name) || de2.contains(name)) {
+                if (de1.toLowerCase().contains(name.toLowerCase())
+                        || de2.toLowerCase().contains(name.toLowerCase())) {
                     try {
                         courses.get(de1).addFirst(rowData);
                     } catch (Exception e) {
