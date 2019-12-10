@@ -15,12 +15,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class SearchByProfessor extends AppCompatActivity {
 
-    private Map<String, LinkedList<String[]>>  professors = new HashMap<>();
+    private Map<String, ArrayList<String>>  professors = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,35 +73,28 @@ public class SearchByProfessor extends AppCompatActivity {
         String line;
             while ((line = reader.readLine()) != null) {
                 String[] rowData = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-                String de = rowData[20];
-                if (de.contains(name)) {
+                final String prof = rowData[20];
+                if (prof.contains(name)) {
                     try {
-                        professors.get(de).addFirst(rowData);
+                        professors.get(prof).add(line);
                     } catch (Exception e) {
-                        LinkedList<String[]> toPut = new LinkedList<>();
-                        toPut.add(rowData);
-                        professors.put(de, toPut);
-                    }
-                    View profChunk = getLayoutInflater().inflate(R.layout.chunk_prof, profList, false);//the chunk layout
-                    Button aProf = profChunk.findViewById(R.id.aProf);//the button of prof
-                    //add onclick here for aProf
-                    aProf.setText(de);//set the button's text
-                    profList.addView(profChunk);
-                    aProf.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(SearchByProfessor.this, ProfDisplay.class);
-                            intent.putExtra("name", name);
-                            LinkedList<String[]> datas = professors.get(name);
-                            int i = 0;
-                            while (datas != null) {
-                                intent.putExtra(Integer.toString(i), datas.removeFirst());
-                                i++;
+                        ArrayList<String> toPut = new ArrayList<>();
+                        toPut.add(line);
+                        professors.put(prof, toPut);
+                        View profChunk = getLayoutInflater().inflate(R.layout.chunk_prof, profList, false);//the chunk layout
+                        Button aProf = profChunk.findViewById(R.id.aProf);//the button of prof
+                        aProf.setText(prof);
+                        profList.addView(profChunk);
+                        aProf.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(SearchByProfessor.this, ProfDisplay.class);
+                                intent.putExtra("name", prof);
+                                intent.putExtra("datas", professors.get(prof));
+                                startActivity(intent);
                             }
-                            intent.putExtra("lines", i);
-                            startActivity(intent);
-                        }
-                    });
+                        });
+                    }
                 }
             }
         } catch (FileNotFoundException e) {
