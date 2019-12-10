@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 public class ProfDisplay extends AppCompatActivity {
@@ -22,10 +21,9 @@ public class ProfDisplay extends AppCompatActivity {
         setContentView(R.layout.activity_prof_display);
         Map<String, String> courses = new HashMap<>();
         LinearLayout disProfList = findViewById(R.id.DisProfList);
-        //intent 拉name 改 textView
         String prof = getIntent().getStringExtra("name");
         TextView profName = findViewById(R.id.profName);
-        profName.setText(prof);//改名
+        profName.setText(prof);
         ArrayList<String> datas = getIntent().getStringArrayListExtra("datas");
 
         for (String dataS : datas) {
@@ -35,10 +33,10 @@ public class ProfDisplay extends AppCompatActivity {
                     data[8] + " B+:" + data[9] + " B:" + data[10] + " B-:" + data[11] + " C+:" +
                     data[12] + " C:" + data[13] + " C-:" + data[14] + " D+:" + data[15] + " D:" +
                     data[16] + " D-:" + data[17] + " F:" + data[18] + " W:" + data[19] + "\n";
-            try {
+            if (courses.containsKey(courseName)) {
                 courses.replace(courseName, courses.get(courseName) + toAdd);
-            } catch (Exception e) {
-                courses.put(courseName,toAdd);
+            } else {
+                courses.put(courseName, toAdd);
             }
         }
 
